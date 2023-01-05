@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ItemBroadCastCardView"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp">
+
+        <ImageView
+            android:id="@+id/ItemBroadCastThumbImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="ContentDescription" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/ItemBroadCastBroadTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="left"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="5dp"
+            tools:text="asssssssssssssssssssssssssssssssssssssssssssssssssssssssd" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ItemBroadCastProfileImageView"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintStart_toStartOf="@id/ItemBroadCastBroadTitleTextView"
+            app:layout_constraintTop_toBottomOf="@id/ItemBroadCastBroadTitleTextView"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/ItemBroadCastNickTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/ItemBroadCastProfileImageView"
+            app:layout_constraintTop_toTopOf="@id/ItemBroadCastProfileImageView"
+            tools:text="김택환" />
+
+        <ImageView
+            android:id="@+id/ItemBroadCastTmpImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_supervisor_account_12"
+            app:layout_constraintStart_toStartOf="@id/ItemBroadCastNickTextView"
+            app:layout_constraintTop_toBottomOf="@id/ItemBroadCastNickTextView"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/ItemBroadCastViewCntTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="2123"
+            app:layout_constraintStart_toEndOf="@id/ItemBroadCastTmpImageView"
+            app:layout_constraintTop_toBottomOf="@id/ItemBroadCastNickTextView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
