@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.chlqudco.afreecatvtest.data.response.Broad
-import com.chlqudco.afreecatvtest.databinding.ItemBroadcastBinding
+import com.chlqudco.afreecatvtest.databinding.ItemBroadBinding
 
-class BroadCastAdapter(
+class BroadListAdapter(
     val broadClickListener: (Broad) -> (Unit)
-): RecyclerView.Adapter<BroadCastAdapter.ViewHolder>() {
+): RecyclerView.Adapter<BroadListAdapter.ViewHolder>() {
 
     var broadList: List<Broad> = emptyList()
 
 
-    inner class ViewHolder(private val binding: ItemBroadcastBinding ): RecyclerView.ViewHolder(binding.root){
+    inner class ViewHolder(private val binding: ItemBroadBinding ): RecyclerView.ViewHolder(binding.root){
         fun bind(broad: Broad){
 
             //클릭 리스너
@@ -44,7 +44,7 @@ class BroadCastAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemBroadcastBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(ItemBroadBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

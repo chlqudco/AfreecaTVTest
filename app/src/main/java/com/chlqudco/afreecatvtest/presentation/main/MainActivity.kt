@@ -8,7 +8,7 @@ import com.chlqudco.afreecatvtest.databinding.ActivityMainBinding
 import com.chlqudco.afreecatvtest.presentation.adapter.FragmentAdapter
 import com.chlqudco.afreecatvtest.presentation.base.BaseActivity
 import com.chlqudco.afreecatvtest.presentation.detail.DetailActivity
-import com.chlqudco.afreecatvtest.presentation.talk.TalkFragment
+import com.chlqudco.afreecatvtest.presentation.broadlist.BroadListFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
@@ -48,18 +48,18 @@ internal class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>()
         for (cate in state.list.broadCategory) {
             categoryMap[cate.cateName] = cate.cateNo
             tabTitles.add(cate.cateName)
-            fragmentList.add(TalkFragment())
+            fragmentList.add(BroadListFragment())
         }
 
         TabLayoutMediator(binding.MainActivityTabLayout, binding.MainActivityViewPager) { tab, position ->
             tab.text = tabTitles[position]
         }.attach()
 
-        (fragmentList[0] as TalkFragment).getBroadCastListByNumber(categoryMap["토크/캠방"]!!)
+        (fragmentList[0] as BroadListFragment).getBroadCastListByNumber(categoryMap["토크/캠방"]!!)
 
         binding.MainActivityTabLayout.addOnTabSelectedListener(object  : OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                (fragmentList[tab?.position!!] as TalkFragment).getBroadCastListByNumber(categoryMap[tab.text]!!)
+                (fragmentList[tab?.position!!] as BroadListFragment).getBroadCastListByNumber(categoryMap[tab.text]!!)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}

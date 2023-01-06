@@ -2,7 +2,7 @@ package com.chlqudco.afreecatvtest.data.repository
 
 import android.util.Log
 import com.chlqudco.afreecatvtest.data.network.ApiService
-import com.chlqudco.afreecatvtest.data.response.BroadCastListResponse
+import com.chlqudco.afreecatvtest.data.response.BroadListResponse
 import com.chlqudco.afreecatvtest.data.response.CategoryListResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -12,9 +12,9 @@ class AppRepositoryImpl(
     private val ioDispatcher: CoroutineDispatcher
 ) : AppRepository {
 
-    override suspend fun getBroadcastList(cate: String): BroadCastListResponse? = withContext(ioDispatcher){
+    override suspend fun getBroadList(cate: String): BroadListResponse? = withContext(ioDispatcher){
         try {
-            val response = ApiService.getBroadCastList(cate)
+            val response = ApiService.getBroadList(cate)
             return@withContext if (response.isSuccessful){
                 response.body()
             } else{

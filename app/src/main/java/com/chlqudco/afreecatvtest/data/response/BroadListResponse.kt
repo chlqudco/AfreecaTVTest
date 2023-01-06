@@ -3,7 +3,7 @@ package com.chlqudco.afreecatvtest.data.response
 
 import com.google.gson.annotations.SerializedName
 
-data class BroadCastListResponse(
+data class BroadListResponse(
     @SerializedName("broad")
     val broad: List<Broad>,
     @SerializedName("page_block")

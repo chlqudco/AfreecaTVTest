@@ -6,11 +6,11 @@ import com.chlqudco.afreecatvtest.data.network.provideGsonConverterFactory
 import com.chlqudco.afreecatvtest.data.network.provideRetrofit
 import com.chlqudco.afreecatvtest.data.repository.AppRepository
 import com.chlqudco.afreecatvtest.data.repository.AppRepositoryImpl
-import com.chlqudco.afreecatvtest.domain.GetBroadCastListUseCase
+import com.chlqudco.afreecatvtest.domain.GetBroadListUseCase
 import com.chlqudco.afreecatvtest.domain.GetCategoryListUseCase
 import com.chlqudco.afreecatvtest.presentation.detail.DetailViewModel
 import com.chlqudco.afreecatvtest.presentation.main.MainViewModel
-import com.chlqudco.afreecatvtest.presentation.talk.TalkViewModel
+import com.chlqudco.afreecatvtest.presentation.broadlist.BroadListViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -23,7 +23,7 @@ internal val appModule = module {
 
     //뷰모델
     viewModel { MainViewModel(get()) }
-    viewModel { TalkViewModel(get()) }
+    viewModel { BroadListViewModel(get()) }
     viewModel { DetailViewModel() }
 
     //retrofit
@@ -36,6 +36,6 @@ internal val appModule = module {
     single<AppRepository> { AppRepositoryImpl(get(), get()) }
 
     //UseCase
-    factory { GetBroadCastListUseCase(get()) }
+    factory { GetBroadListUseCase(get()) }
     factory { GetCategoryListUseCase(get()) }
 }

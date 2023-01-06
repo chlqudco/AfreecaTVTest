@@ -1,13 +1,13 @@
 package com.chlqudco.afreecatvtest.data.network
 
 import com.chlqudco.afreecatvtest.BuildConfig
-import com.chlqudco.afreecatvtest.presentation.utility.Url
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Url
 import java.util.concurrent.TimeUnit
 
 internal fun provideApiService(retrofit: Retrofit): ApiService{
@@ -19,7 +19,7 @@ internal fun provideRetrofit(
     gsonConverterFactory: GsonConverterFactory,
 ): Retrofit {
     return Retrofit.Builder()
-        .baseUrl(Url.BASE_URL)
+        .baseUrl(BuildConfig.baseUrl)
         .addConverterFactory(gsonConverterFactory)
         .client(okHttpClient)
         .build()

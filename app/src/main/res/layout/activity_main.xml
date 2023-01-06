@@ -20,7 +20,7 @@
             android:id="@+id/MainActivityToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="#0043FF"
             app:popupTheme="@style/Theme.TabLayoutDemo.PopupOverlay" />
 
         <com.google.android.material.tabs.TabLayout

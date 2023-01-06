@@ -31,6 +31,8 @@ internal class DetailActivity : BaseActivity<DetailViewModel, ActivityDetailBind
 
             binding.ActivityDetailIdTextView.text = broad.userId
             binding.ActivityDetailNickTextView.text = broad.userNick
+            binding.ActivityDetailViewCntTextView.text = broad.totalViewCnt
+            binding.ActivityDetailBroadTitleTextView.text = broad.broadTitle
 
             Glide.with(this@DetailActivity)
                 .load("https:${broad.broadThumb}")
