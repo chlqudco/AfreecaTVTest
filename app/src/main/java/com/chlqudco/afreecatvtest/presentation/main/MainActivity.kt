@@ -16,7 +16,10 @@ import org.koin.android.ext.android.inject
 
 internal class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
+    //카테고리 종류를 Map으로 관리
     private val categoryMap: MutableMap<String, String> = mutableMapOf()
+
+    //탭 레이아웃과 뷰페이저를 위한 리스트
     private val tabTitles: MutableList<String> = mutableListOf()
     private val fragmentList: MutableList<Fragment> = mutableListOf()
 
@@ -25,6 +28,7 @@ internal class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>()
     override fun getViewBinding() = ActivityMainBinding.inflate(layoutInflater)
 
     override fun observeData() {
+        //카테고리 리스트를 State 패턴으로 관리
         viewModel.categoryListLiveData.observe(this) {
             when (it) {
                 is MainState.UnInitialized -> initViews()
@@ -35,28 +39,34 @@ internal class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>()
         }
     }
 
+    //메인 액티비티 생성시 카테고리 리스트 가져와야 함
     private fun getCategoryList() {
         viewModel.getCategoryList()
     }
 
     private fun handleSuccessState(state: MainState.Success) {
 
+        //어댑터 연결
         val adapter = FragmentAdapter(this)
         adapter.fragmentList = fragmentList
         binding.MainActivityViewPager.adapter = adapter
 
+        //불러온 카테고리 정보를 적절히 저장해두기
         for (cate in state.list.broadCategory) {
             categoryMap[cate.cateName] = cate.cateNo
             tabTitles.add(cate.cateName)
             fragmentList.add(BroadListFragment())
         }
 
+        //탭 레이아웃과 뷰페이저 연결
         TabLayoutMediator(binding.MainActivityTabLayout, binding.MainActivityViewPager) { tab, position ->
             tab.text = tabTitles[position]
         }.attach()
 
-        (fragmentList[0] as BroadListFragment).getBroadCastListByNumber(categoryMap["토크/캠방"]!!)
+        //앱 첫 실행시 첫 카테고리에 대한 방송 리스트 로딩
+        (fragmentList[0] as BroadListFragment).getBroadCastListByNumber(categoryMap[tabTitles[0]]!!)
 
+        //탭 레이아웃 선택시 선택한 카테고리에 대한 방송 불러오기
         binding.MainActivityTabLayout.addOnTabSelectedListener(object  : OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 (fragmentList[tab?.position!!] as BroadListFragment).getBroadCastListByNumber(categoryMap[tab.text]!!)
@@ -78,6 +88,7 @@ internal class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>()
 
     fun moveDetailActivity(broad: Broad){
         val intent = Intent(this, DetailActivity::class.java)
+        //선택한 Broad 정보를 인텐트에 담아 넘기기
         intent.putExtra("broad",broad)
         startActivity(intent)
     }

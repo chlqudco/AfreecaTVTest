@@ -1,32 +1,33 @@
 package com.chlqudco.afreecatvtest.presentation.broadlist
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.chlqudco.afreecatvtest.domain.GetBroadListUseCase
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.chlqudco.afreecatvtest.data.response.Broad
+import com.chlqudco.afreecatvtest.domain.GetBroadListByPagingUseCase
 import com.chlqudco.afreecatvtest.presentation.base.BaseViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 internal class BroadListViewModel(
-    private val getBroadListUseCase: GetBroadListUseCase
+    private val getBroadListByPagingUseCase: GetBroadListByPagingUseCase
 ) : BaseViewModel() {
 
-    private var _broadCastListLiveData = MutableLiveData<BroadListState>(BroadListState.UnInitialized)
-    val broadCastListLiveData: LiveData<BroadListState> = _broadCastListLiveData
+    private val _broadListPagingResult = MutableStateFlow<PagingData<Broad>>(PagingData.empty())
+    val broadListPagingResult: StateFlow<PagingData<Broad>> = _broadListPagingResult.asStateFlow()
 
-    override fun fetchData(): Job = viewModelScope.launch {
-        _broadCastListLiveData.postValue(BroadListState.Loading)
-    }
-
-    fun getBroadCastList(cate: String){
+    fun getBroadListByPaging(cate: String){
         viewModelScope.launch {
-            val response = getBroadListUseCase(cate)
-            if (response == null) {
-                _broadCastListLiveData.postValue(BroadListState.Error)
-            } else{
-                _broadCastListLiveData.postValue(BroadListState.Success(response))
-            }
+            getBroadListByPagingUseCase(cate)
+                .cachedIn(viewModelScope)
+                .collect{
+                    _broadListPagingResult.value = it
+                }
         }
     }
+
+    override fun fetchData(): Job = viewModelScope.launch {}
 }

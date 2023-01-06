@@ -13,31 +13,32 @@ internal class DetailActivity : BaseActivity<DetailViewModel, ActivityDetailBind
 
     override fun getViewBinding() = ActivityDetailBinding.inflate(layoutInflater)
 
-    override fun observeData() {}
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         initViews()
     }
 
     private fun initViews() {
+        //정보 꺼냐오기
         val broad = intent.getParcelableExtra<Broad>("broad")
 
+        //화면에 뿌리기
         broad?.let {
+
             Glide.with(this@DetailActivity)
                 .load("https:${broad.profileImg}")
                 .into(binding.ActivityDetailProfileImageView)
+
+            Glide.with(this@DetailActivity)
+                .load("https:${broad.broadThumb}")
+                .into(binding.ActivityDetailThumbImageView)
 
             binding.ActivityDetailIdTextView.text = broad.userId
             binding.ActivityDetailNickTextView.text = broad.userNick
             binding.ActivityDetailViewCntTextView.text = broad.totalViewCnt
             binding.ActivityDetailBroadTitleTextView.text = broad.broadTitle
-
-            Glide.with(this@DetailActivity)
-                .load("https:${broad.broadThumb}")
-                .into(binding.ActivityDetailThumbImageView)
         }
-
     }
+
+    override fun observeData() {}
 }

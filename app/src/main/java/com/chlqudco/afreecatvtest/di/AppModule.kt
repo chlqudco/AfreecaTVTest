@@ -6,7 +6,7 @@ import com.chlqudco.afreecatvtest.data.network.provideGsonConverterFactory
 import com.chlqudco.afreecatvtest.data.network.provideRetrofit
 import com.chlqudco.afreecatvtest.data.repository.AppRepository
 import com.chlqudco.afreecatvtest.data.repository.AppRepositoryImpl
-import com.chlqudco.afreecatvtest.domain.GetBroadListUseCase
+import com.chlqudco.afreecatvtest.domain.GetBroadListByPagingUseCase
 import com.chlqudco.afreecatvtest.domain.GetCategoryListUseCase
 import com.chlqudco.afreecatvtest.presentation.detail.DetailViewModel
 import com.chlqudco.afreecatvtest.presentation.main.MainViewModel
@@ -15,9 +15,10 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
+//모듈 만들기
 internal val appModule = module {
 
-    //코루틴
+    //코루틴 싱글턴 생성
     single { Dispatchers.IO }
     single { Dispatchers.Main }
 
@@ -26,7 +27,7 @@ internal val appModule = module {
     viewModel { BroadListViewModel(get()) }
     viewModel { DetailViewModel() }
 
-    //retrofit
+    //retrofit도 싱글턴으로 생성
     single { provideGsonConverterFactory() }
     single { buildOkHttpClient() }
     single { provideApiService(get()) }
@@ -36,6 +37,6 @@ internal val appModule = module {
     single<AppRepository> { AppRepositoryImpl(get(), get()) }
 
     //UseCase
-    factory { GetBroadListUseCase(get()) }
     factory { GetCategoryListUseCase(get()) }
+    factory { GetBroadListByPagingUseCase(get()) }
 }

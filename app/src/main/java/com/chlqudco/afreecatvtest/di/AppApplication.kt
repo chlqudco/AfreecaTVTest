@@ -11,6 +11,7 @@ class AppApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
+        //Koin 연결
         startKoin {
             androidLogger(Level.ERROR)
             androidContext(this@AppApplication)
